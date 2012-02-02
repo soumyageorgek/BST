@@ -22,19 +22,18 @@ struct node *new(int dat)
 struct node *insert(struct node *h, struct node *n)
 {
 	if(h == 0) return n;
-	
+
 	if(n->dat < h->dat)
 		h->left = insert(h->left, n);
 	else
 		h->right = insert(h->right, n);
 
 	return h;
-
 }
 
 void inorder(struct node *l)
 {
-	if(l == 0) return;
+if(l == 0) return;
 
         inorder(l->left);
         printf("%d\t",l->dat);
@@ -72,48 +71,52 @@ struct node *delete(struct node *h, int data)
 	if(h == 0){
 		printf("no such an element\n");
 		return h;
+	}
+	if(data == h->dat){
+		if(h->left == 0 && h->right == 0) {
+			free(h);
+			return NULL;
 		}
-		if(data == h->dat){
-			if(h->left == 0 && h->right == 0)
-				return NULL;
-			else{
-				if(h->left != 0 && h->right != 0){
-					h->dat = twochild(h);
-					return h;
+		else{
+			if(h->left != 0 && h->right != 0){
+				h->dat = twochild(h);
+				return h;
 			}else{
 				return one_child(h);
 			}
-			}
 		}
-		else{
-			if(data < h->dat)
-				h->left = delete(h->left, data);
-			else
-				h->right = delete(h->right, data);
-		}
+	}
+	else{
+		if(data < h->dat)
+			h->left = delete(h->left, data);
+		else
+			h->right = delete(h->right, data);
+	}
 	return h;
 }
 main()
 {
 	struct node *h = 0;
-	int choice,y,data;
+	int choice, data;
 
         do{
-        printf("1.insert\n2.inorder\n3.delete\n");
-        scanf("%d",&choice);
+		printf("1.insert\n2.inorder\n3.delete\n");
+		scanf("%d",&choice);
 
-        switch(choice){
-                case 1:scanf("%d",&data);
-                       h=insert(h ,new(data));
-                       break;
-                case 2:inorder(h);
-		       printf("\n");
-                       break;
-		case 3:scanf("%d",&data);
-		       h=delete(h ,data);
-		       break;
-        }
-	scanf("%d",&y);
-        }while(y==1);
+		switch(choice){
+			case 1:scanf("%d",&data);
+				h=insert(h ,new(data));
+				break;
+			case 2:inorder(h);
+				printf("\n");
+				break;
+			case 3:scanf("%d",&data);
+				h=delete(h ,data);
+				break;
+		}
+        }while(1);
 
 }
+
+
+
