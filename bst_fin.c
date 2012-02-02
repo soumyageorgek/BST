@@ -67,6 +67,7 @@ int twochild(struct node *h)
 struct node *delete(struct node *h, int data)
 {
 	int d;
+	struct node *child;
 
 	if(h == 0){
 		printf("no such an element\n");
@@ -82,7 +83,9 @@ struct node *delete(struct node *h, int data)
 				h->dat = twochild(h);
 				return h;
 			}else{
-				return one_child(h);
+				child = one_child(h);
+				free(h);
+				return child;
 			}
 		}
 	}
